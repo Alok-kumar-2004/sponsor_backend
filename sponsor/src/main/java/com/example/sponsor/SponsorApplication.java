@@ -10,4 +10,3 @@ public class SponsorApplication {
 		SpringApplication.run(SponsorApplication.class, args);
 	}
 }
- 
