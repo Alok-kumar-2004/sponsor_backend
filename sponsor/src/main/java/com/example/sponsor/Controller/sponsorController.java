@@ -10,7 +10,7 @@ import com.example.sponsor.Repository.sponsorRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({"/api/v1"})
 public class sponsorController {
@@ -19,21 +19,21 @@ public class sponsorController {
 
     public sponsorController(){}
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
+    @CrossOrigin(origins = "*")
     @GetMapping({"/sponsors"})
     public ResponseEntity<List<sponsorModel>> getAllSponsors() {
         List<sponsorModel> sponsors = this.sponsorRepository.findAll();
         return sponsors.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.ok(sponsors);
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
+    @CrossOrigin(origins = "*")
     @PostMapping({"/sponsors"})
     public sponsorModel createSponsor(@RequestBody sponsorModel sponsor) {
         System.out.println("Received Sponsor: " + sponsor);
         return this.sponsorRepository.save(sponsor);
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
+    @CrossOrigin(origins = "*")
     @GetMapping({"/sponsors/{id}"})
     public ResponseEntity<sponsorModel> getSponsorById(@PathVariable Long id) {
         sponsorModel sponsor = this.sponsorRepository.findById(id)
@@ -41,14 +41,14 @@ public class sponsorController {
         return ResponseEntity.ok(sponsor);
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
+    @CrossOrigin(origins = "*")
     @GetMapping({"/sponsors/event/{eventName}"})
     public ResponseEntity<List<sponsorModel>> getSponsorsByEventName(@PathVariable String eventName) {
         List<sponsorModel> sponsors = this.sponsorRepository.findByEventName(eventName);
         return sponsors.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.ok(sponsors);
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
+    @CrossOrigin(origins = "*")
     @PutMapping({"/sponsors/{id}"})
     public ResponseEntity<sponsorModel> updateSponsor(@PathVariable Long id, @RequestBody sponsorModel sponsorDetails) {
         sponsorModel sponsor = this.sponsorRepository.findById(id).orElseThrow(() -> new RuntimeException("Sponsor not found with id: " + id));
@@ -65,7 +65,7 @@ public class sponsorController {
         return ResponseEntity.ok(updatedSponsor);
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
+    @CrossOrigin(origins = "*")
     @DeleteMapping({"/sponsors/{id}"})
     public ResponseEntity<Map<String, Boolean>> deleteSponsor(@PathVariable Long id) {
         sponsorModel sponsor = this.sponsorRepository.findById(id)
